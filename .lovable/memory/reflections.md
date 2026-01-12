@@ -1,106 +1,87 @@
 # Reflections Log
 
-Post-task learnings and insights for continuous improvement.
+> Post-task reflections for continuous improvement.
 
 ---
 
 ## How to Use This File
 
-After completing a task, add a reflection entry to capture:
-- What went well (to repeat)
-- What was challenging (to improve)
-- Lessons learned (to remember)
-- Patterns discovered (to reuse)
+After completing a significant task, add a reflection entry below. This helps:
+- Capture lessons learned while they're fresh
+- Build a knowledge base for future similar tasks
+- Identify patterns in challenges and solutions
 
 ---
 
 ## Reflection Entry Template
 
 ```markdown
-## [YYYY-MM-DD] Task: <Task Title>
+### [Task Title] - [Date]
 
-**Outcome:** ✅ Success | ⚠️ Partial | ❌ Failed
-**Confidence:** High | Medium | Low
-**Time:** Estimated [X] → Actual [Y]
+**Outcome:** Success | Partial | Failed  
+**Confidence:** High | Medium | Low  
+**Time:** [Estimated] vs [Actual]
 
-### What Went Well
-- [Thing that worked]
-- [Approach that was effective]
+**What Went Well:**
+- [Point 1]
+- [Point 2]
 
-### Challenges Faced
-- [Obstacle encountered]
-- [Unexpected complexity]
+**Challenges:**
+- [Challenge 1]
+- [Challenge 2]
 
-### Root Cause (if issue)
-[What actually caused the problem]
+**Root Cause (if applicable):**
+[Why did challenges occur?]
 
-### Key Lesson
-> [One sentence insight to remember]
+**Key Lesson:**
+[One main takeaway]
 
-### Apply To
-- [Future task type where this applies]
-- [Similar situation to watch for]
+**Apply to Future:**
+[How to use this learning]
 
-### Pattern Identified
-- **Name:** [Pattern name]
-- **When:** [Trigger condition]
-- **Do:** [Recommended action]
-
----
+**Pattern Identified:**
+- [ ] Add to successes.md
+- [ ] Add to mistakes.md
 ```
 
 ---
 
 ## Reflections
 
-<!-- Add new reflections below this line, newest first -->
+<!-- EXAMPLE ENTRY - Delete after first real reflection
 
-### [Template Entry - Delete After First Real Entry]
+### User Authentication Implementation - 2024-01-15
 
-## [YYYY-MM-DD] Task: Example Task
+**Outcome:** Success  
+**Confidence:** High  
+**Time:** 4h estimated vs 6h actual
 
-**Outcome:** ✅ Success
-**Confidence:** High
-**Time:** Estimated 30min → Actual 45min
+**What Went Well:**
+- Supabase auth integration was straightforward
+- Component structure was clean and reusable
+- Error handling covered edge cases
 
-### What Went Well
-- Clear requirements from user
-- Existing patterns in codebase helped
+**Challenges:**
+- Session persistence took longer than expected
+- Had to refactor the auth context twice
 
-### Challenges Faced
-- Initially misunderstood the scope
-- Had to refactor midway
+**Root Cause:**
+Didn't fully read Supabase docs before starting. Assumed behavior based on other auth libraries.
 
-### Key Lesson
-> Always confirm scope before starting implementation
+**Key Lesson:**
+Always read official docs for new integrations before coding.
 
-### Apply To
-- Feature requests with vague descriptions
-- Tasks touching multiple files
+**Apply to Future:**
+Add "Read docs" as first step in any integration task.
 
-### Pattern Identified
-- **Name:** Scope Confirmation
-- **When:** Task description uses words like "simple", "just", "quick"
-- **Do:** Ask clarifying questions before coding
+**Pattern Identified:**
+- [x] Add to successes.md (auth component structure)
+- [ ] Add to mistakes.md
+
+-->
 
 ---
 
-<!-- 
-GUIDELINES FOR GOOD REFLECTIONS:
+<!-- Add new reflections above this line -->
 
-1. Be Specific
-   ❌ "It was hard"
-   ✅ "The async state management was complex because of race conditions"
-
-2. Be Actionable
-   ❌ "Should do better next time"
-   ✅ "Next time, add loading states before implementing fetch logic"
-
-3. Identify Patterns
-   ❌ "Fixed the bug"
-   ✅ "This is the 3rd time null checks were missing - add to component template"
-
-4. Connect to Future
-   ❌ "Learned something"
-   ✅ "When user asks for 'real-time', always clarify: polling vs websockets vs SSE"
--->
+*Last updated: [Date]*
