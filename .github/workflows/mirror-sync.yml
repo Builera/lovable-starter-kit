@@ -15,21 +15,25 @@ jobs:
           fetch-depth: 0
           persist-credentials: false
 
-      - name: Push to public repo
+      - name: Rewrite commits and push to public repo
         env:
           MIRROR_PAT: ${{ secrets.MIRROR_PAT }}
         run: |
           set -euo pipefail
 
-          git config user.name "Builera"
-          git config user.email "support@builera.app"
-
-          # Remove auth header set by actions/checkout (prevents using github-actions[bot])
+          # Remove auth header set by actions/checkout
           git config --unset-all http.https://github.com/.extraheader || true
 
-          # Recreate remote cleanly
-          git remote remove public || true
+          # Rewrite ALL commits with Builera as author
+          git filter-branch --force --env-filter '
+            export GIT_AUTHOR_NAME="Builera"
+            export GIT_AUTHOR_EMAIL="support@builera.app"
+            export GIT_COMMITTER_NAME="Builera"
+            export GIT_COMMITTER_EMAIL="support@builera.app"
+          ' -- --all
+
+          # Add public repo as remote
           git remote add public https://x-access-token:${MIRROR_PAT}@github.com/Builera/lovable-starter-kit.git
 
-          # Push current HEAD to public main
+          # Force push rewritten history
           git push public HEAD:main --force
