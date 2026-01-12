@@ -1,14 +1,17 @@
-# Prompt: Setup AI Operating System
+# Prompt: Setup Lovable Starter Kit
 
-> Use this prompt when setting up a NEW project with the AI Operating System.
+> Use this prompt when setting up a NEW project with Lovable Starter Kit.
 > Copy and paste this entire prompt to Lovable.
+> 
+> **Reference:** https://github.com/your-username/lovable-starter-kit
+> **Version:** 1.0.0
 
 ---
 
 ```
 You are working on my Lovable project repository.
 
-Goal: Install a reusable "AI Project Operating System" into this repo so that any future AI coding work follows strict rules and leaves a knowledge trail.
+Goal: Install "Lovable Starter Kit" (AI Project Operating System) into this repo so that any future AI coding work follows strict rules and leaves a knowledge trail.
 
 ## Tasks (must do all)
 

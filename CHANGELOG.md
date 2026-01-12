@@ -1,4 +1,4 @@
-# Changelog
+# Changelog - Lovable Starter Kit
 
 All notable changes to this project will be documented in this file.
 

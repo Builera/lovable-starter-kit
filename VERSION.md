@@ -1,10 +1,11 @@
-# AI Project Operating System
+# Lovable Starter Kit
 
 ![Version](https://img.shields.io/badge/version-1.0.0-blue.svg)
+[![GitHub](https://img.shields.io/badge/GitHub-lovable--starter--kit-blue?logo=github)](https://github.com/your-username/lovable-starter-kit)
 
 **Current Version:** 1.0.0  
 **Release Date:** 2026-01-12  
-**Status:** Stable  
+**Status:** Stable
 
 ---
 
