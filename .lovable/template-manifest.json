@@ -1,0 +1,172 @@
+{
+  "version": "1.0.0",
+  "installedAt": "2026-01-12",
+  "sourceRepo": "Builera/lovable-starter-kit",
+  "updateWorkflow": ".github/workflows/update-starter-kit.yml",
+  "files": {
+    ".lovable/rules.md": {
+      "policy": "always",
+      "description": "AI Constitution - system file"
+    },
+    ".lovable/boot-instruction.md": {
+      "policy": "always",
+      "description": "Boot instruction - system file"
+    },
+    ".lovable/memory/decision-trees/component-choice.md": {
+      "policy": "always",
+      "description": "Decision tree - system file"
+    },
+    ".lovable/memory/decision-trees/error-handling.md": {
+      "policy": "always",
+      "description": "Decision tree - system file"
+    },
+    ".lovable/memory/decision-trees/refactor-vs-fix.md": {
+      "policy": "always",
+      "description": "Decision tree - system file"
+    },
+    "prompts/00-setup-os.md": {
+      "policy": "always",
+      "description": "Prompt template - system file"
+    },
+    "prompts/01-boot-prompt.md": {
+      "policy": "always",
+      "description": "Prompt template - system file"
+    },
+    "prompts/02-feature-request.md": {
+      "policy": "always",
+      "description": "Prompt template - system file"
+    },
+    "prompts/03-bug-fix.md": {
+      "policy": "always",
+      "description": "Prompt template - system file"
+    },
+    "prompts/04-architecture-change.md": {
+      "policy": "always",
+      "description": "Prompt template - system file"
+    },
+    "prompts/05-weekly-update.md": {
+      "policy": "always",
+      "description": "Prompt template - system file"
+    },
+    "prompts/06-self-healing.md": {
+      "policy": "always",
+      "description": "Prompt template - system file"
+    },
+    "prompts/07-debug-loop.md": {
+      "policy": "always",
+      "description": "Prompt template - system file"
+    },
+    "prompts/08-session-handoff.md": {
+      "policy": "always",
+      "description": "Prompt template - system file"
+    },
+    "scripts/validate-structure.js": {
+      "policy": "always",
+      "description": "Validation script - system file"
+    },
+    "scripts/validate-templates.js": {
+      "policy": "always",
+      "description": "Validation script - system file"
+    },
+    "scripts/generate-manifest.js": {
+      "policy": "always",
+      "description": "Manifest generator - system file"
+    },
+    "scripts/parse-releases.js": {
+      "policy": "always",
+      "description": "Release parser - system file"
+    },
+    "scripts/README.md": {
+      "policy": "always",
+      "description": "Script documentation - system file"
+    },
+    "examples/projectbrief-example.md": {
+      "policy": "always",
+      "description": "Example template - system file"
+    },
+    "examples/techContext-example.md": {
+      "policy": "always",
+      "description": "Example template - system file"
+    },
+    "examples/activeContext-example.md": {
+      "policy": "always",
+      "description": "Example template - system file"
+    },
+    "examples/mistakes-example.md": {
+      "policy": "always",
+      "description": "Example template - system file"
+    },
+    "examples/adr-example.md": {
+      "policy": "always",
+      "description": "Example template - system file"
+    },
+    "QUICK-REFERENCE.md": {
+      "policy": "always",
+      "description": "Quick reference card - system file"
+    },
+    "VERSION.md": {
+      "policy": "always",
+      "description": "Version tracking - system file"
+    },
+    ".github/workflows/update-starter-kit.yml": {
+      "policy": "always",
+      "description": "Update workflow - system file"
+    },
+    "docs/adr/000-template.md": {
+      "policy": "smart-merge",
+      "description": "ADR template - customizable"
+    },
+    "docs/errors/000-error-template.md": {
+      "policy": "smart-merge",
+      "description": "Error template - customizable"
+    },
+    "docs/architecture/overview.md": {
+      "policy": "smart-merge",
+      "description": "Architecture overview - customizable"
+    },
+    "docs/PROJECT-KNOWLEDGE-SETUP.md": {
+      "policy": "smart-merge",
+      "description": "Setup guide - customizable"
+    },
+    ".lovable/memory/projectbrief.md": {
+      "policy": "never",
+      "description": "User project data"
+    },
+    ".lovable/memory/activeContext.md": {
+      "policy": "never",
+      "description": "User project data"
+    },
+    ".lovable/memory/progress.md": {
+      "policy": "never",
+      "description": "User project data"
+    },
+    ".lovable/memory/techContext.md": {
+      "policy": "never",
+      "description": "User project data"
+    },
+    ".lovable/memory/systemPatterns.md": {
+      "policy": "never",
+      "description": "User project data"
+    },
+    ".lovable/memory/reflections.md": {
+      "policy": "never",
+      "description": "User project data"
+    },
+    ".lovable/memory/metrics.md": {
+      "policy": "never",
+      "description": "User project data"
+    },
+    ".lovable/memory/patterns/mistakes.md": {
+      "policy": "never",
+      "description": "User project data"
+    },
+    ".lovable/memory/patterns/successes.md": {
+      "policy": "never",
+      "description": "User project data"
+    },
+    "CHANGELOG.md": {
+      "policy": "never",
+      "description": "User changelog"
+    }
+  }
+}

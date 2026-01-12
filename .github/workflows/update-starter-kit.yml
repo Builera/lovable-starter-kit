@@ -1,0 +1,305 @@
+name: Update Lovable Starter Kit
+
+on:
+  workflow_dispatch:
+    inputs:
+      version:
+        description: 'Target version (branch/tag)'
+        required: false
+        default: 'main'
+      dry_run:
+        description: 'Preview only (no changes applied)'
+        required: false
+        type: boolean
+        default: false
+      force:
+        description: 'Force update all files (creates backups)'
+        required: false
+        type: boolean
+        default: false
+
+permissions:
+  contents: write
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout current repo
+        uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Read current manifest
+        id: current
+        run: |
+          if [ -f ".lovable/template-manifest.json" ]; then
+            CURRENT_VERSION=$(node -p "require('./.lovable/template-manifest.json').version")
+            echo "CURRENT_VERSION=$CURRENT_VERSION" >> $GITHUB_OUTPUT
+            echo "HAS_MANIFEST=true" >> $GITHUB_OUTPUT
+          else
+            echo "CURRENT_VERSION=0.0.0" >> $GITHUB_OUTPUT
+            echo "HAS_MANIFEST=false" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Fetch starter kit
+        run: |
+          VERSION="${{ github.event.inputs.version || 'main' }}"
+          echo "Fetching Lovable Starter Kit version: $VERSION"
+          
+          curl -L "https://github.com/Builera/lovable-starter-kit/archive/refs/heads/${VERSION}.tar.gz" | tar xz
+          mv "lovable-starter-kit-${VERSION}" _update_temp
+
+      - name: Get target version
+        id: target
+        run: |
+          if [ -f "_update_temp/VERSION.md" ]; then
+            TARGET_VERSION=$(grep -oP '(?<=Current Version:\*\* )[0-9]+\.[0-9]+\.[0-9]+' _update_temp/VERSION.md || echo "0.0.0")
+            if [ -z "$TARGET_VERSION" ]; then
+              TARGET_VERSION=$(grep -oP '[0-9]+\.[0-9]+\.[0-9]+' _update_temp/VERSION.md | head -1 || echo "0.0.0")
+            fi
+          else
+            TARGET_VERSION="0.0.0"
+          fi
+          echo "TARGET_VERSION=$TARGET_VERSION" >> $GITHUB_OUTPUT
+
+      - name: Pre-flight check - Parse releases
+        id: releases
+        run: |
+          echo "╔══════════════════════════════════════════════════════════════╗"
+          echo "║  LOVABLE STARTER KIT UPDATE                                   ║"
+          echo "║  Current: ${{ steps.current.outputs.CURRENT_VERSION }} → Target: ${{ steps.target.outputs.TARGET_VERSION }}                              ║"
+          echo "╠══════════════════════════════════════════════════════════════╣"
+          
+          if [ -f "_update_temp/RELEASES.md" ]; then
+            echo "║  RELEASE NOTES:                                               ║"
+            echo "║                                                               ║"
+            # Extract relevant changelog entries (simplified parsing)
+            grep -A 50 "## \[" _update_temp/RELEASES.md | head -30 | while read line; do
+              printf "║  %-60s ║\n" "$line"
+            done
+          else
+            echo "║  No RELEASES.md found                                         ║"
+          fi
+          
+          # Check for breaking changes (major version bump)
+          CURRENT="${{ steps.current.outputs.CURRENT_VERSION }}"
+          TARGET="${{ steps.target.outputs.TARGET_VERSION }}"
+          CURRENT_MAJOR=$(echo $CURRENT | cut -d. -f1)
+          TARGET_MAJOR=$(echo $TARGET | cut -d. -f1)
+          
+          if [ "$TARGET_MAJOR" -gt "$CURRENT_MAJOR" ]; then
+            echo "║                                                               ║"
+            echo "║  ⚠️  BREAKING CHANGES DETECTED (major version bump)           ║"
+            echo "HAS_BREAKING=true" >> $GITHUB_OUTPUT
+          else
+            echo "║                                                               ║"
+            echo "║  ✅ No breaking changes detected                              ║"
+            echo "HAS_BREAKING=false" >> $GITHUB_OUTPUT
+          fi
+          
+          echo "╚══════════════════════════════════════════════════════════════╝"
+
+      - name: Smart merge update
+        if: ${{ github.event.inputs.dry_run != 'true' }}
+        run: |
+          # Read manifest for file policies
+          MANIFEST=".lovable/template-manifest.json"
+          FORCE="${{ github.event.inputs.force }}"
+          
+          UPDATED=0
+          SKIPPED=0
+          PRESERVED=0
+          CONFLICTS=0
+          
+          echo ""
+          echo "📁 Processing files..."
+          echo ""
+          
+          # Process files from update temp
+          process_file() {
+            local src="$1"
+            local dest="${src#_update_temp/}"
+            
+            # Skip RELEASES.md (starter kit's changelog, not for users)
+            if [ "$dest" = "RELEASES.md" ]; then
+              return
+            fi
+            
+            # Skip install workflow
+            if [ "$dest" = ".github/workflows/install-starter-kit.yml" ]; then
+              return
+            fi
+            
+            # Get policy from manifest (default to smart-merge)
+            local policy="smart-merge"
+            if [ -f "$MANIFEST" ]; then
+              policy=$(node -p "try { require('./$MANIFEST').files['$dest']?.policy || 'smart-merge' } catch(e) { 'smart-merge' }" 2>/dev/null || echo "smart-merge")
+            fi
+            
+            # Check if file matches "never" patterns
+            case "$dest" in
+              .lovable/memory/projectbrief.md|.lovable/memory/activeContext.md|.lovable/memory/progress.md|.lovable/memory/techContext.md|.lovable/memory/systemPatterns.md|.lovable/memory/reflections.md|.lovable/memory/metrics.md|.lovable/memory/patterns/*|.lovable/memory/checkpoints/*|CHANGELOG.md)
+                policy="never"
+                ;;
+              docs/adr/001-*|docs/adr/002-*|docs/adr/003-*)
+                policy="never"
+                ;;
+            esac
+            
+            case "$policy" in
+              "always")
+                mkdir -p "$(dirname "$dest")"
+                cp "$src" "$dest"
+                echo "  ✅ Updated (system): $dest"
+                UPDATED=$((UPDATED + 1))
+                ;;
+              "never")
+                echo "  ⏭️ Preserved (user data): $dest"
+                PRESERVED=$((PRESERVED + 1))
+                ;;
+              "smart-merge")
+                if [ ! -f "$dest" ]; then
+                  # File doesn't exist, copy it
+                  mkdir -p "$(dirname "$dest")"
+                  cp "$src" "$dest"
+                  echo "  ✅ Created (new): $dest"
+                  UPDATED=$((UPDATED + 1))
+                elif [ "$FORCE" = "true" ]; then
+                  # Force mode - backup and overwrite
+                  cp "$dest" "${dest}.backup"
+                  cp "$src" "$dest"
+                  echo "  ✅ Updated (forced, backup created): $dest"
+                  UPDATED=$((UPDATED + 1))
+                else
+                  # Compare hashes
+                  CURRENT_HASH=$(sha256sum "$dest" | cut -d' ' -f1)
+                  NEW_HASH=$(sha256sum "$src" | cut -d' ' -f1)
+                  
+                  # Check if file was customized (hash differs from manifest)
+                  ORIGINAL_HASH=""
+                  if [ -f "$MANIFEST" ]; then
+                    ORIGINAL_HASH=$(node -p "try { require('./$MANIFEST').files['$dest']?.hash || '' } catch(e) { '' }" 2>/dev/null || echo "")
+                  fi
+                  
+                  if [ "$CURRENT_HASH" = "$NEW_HASH" ]; then
+                    echo "  ⏭️ Skipped (already up to date): $dest"
+                    SKIPPED=$((SKIPPED + 1))
+                  elif [ -z "$ORIGINAL_HASH" ] || [ "$CURRENT_HASH" = "$ORIGINAL_HASH" ]; then
+                    # File unchanged from original, safe to update
+                    cp "$src" "$dest"
+                    echo "  ✅ Updated (unchanged template): $dest"
+                    UPDATED=$((UPDATED + 1))
+                  else
+                    # File was customized, create .new for manual review
+                    cp "$src" "${dest}.new"
+                    echo "  ⚠️ Conflict (customized): $dest → created ${dest}.new"
+                    CONFLICTS=$((CONFLICTS + 1))
+                  fi
+                fi
+                ;;
+            esac
+          }
+          
+          export -f process_file
+          export MANIFEST FORCE UPDATED SKIPPED PRESERVED CONFLICTS
+          
+          # Find all files in update temp and process
+          find _update_temp -type f | while read file; do
+            process_file "$file"
+          done
+          
+          echo ""
+          echo "════════════════════════════════════════════════════════════════"
+          echo "✨ Update complete!"
+          echo "   Updated: $UPDATED files"
+          echo "   Skipped: $SKIPPED files (already current)"
+          echo "   Preserved: $PRESERVED files (user data)"
+          echo "   Conflicts: $CONFLICTS files (need manual review)"
+          echo "════════════════════════════════════════════════════════════════"
+
+      - name: Dry run preview
+        if: ${{ github.event.inputs.dry_run == 'true' }}
+        run: |
+          echo ""
+          echo "🔍 DRY RUN - No changes will be made"
+          echo ""
+          echo "Files that would be updated:"
+          
+          find _update_temp -type f | while read src; do
+            dest="${src#_update_temp/}"
+            
+            # Skip special files
+            case "$dest" in
+              RELEASES.md|.github/workflows/install-starter-kit.yml)
+                continue
+                ;;
+            esac
+            
+            if [ -f "$dest" ]; then
+              CURRENT_HASH=$(sha256sum "$dest" | cut -d' ' -f1)
+              NEW_HASH=$(sha256sum "$src" | cut -d' ' -f1)
+              if [ "$CURRENT_HASH" != "$NEW_HASH" ]; then
+                echo "  📝 Would update: $dest"
+              fi
+            else
+              echo "  ➕ Would create: $dest"
+            fi
+          done
+
+      - name: Update manifest
+        if: ${{ github.event.inputs.dry_run != 'true' }}
+        run: |
+          # Generate new manifest with updated hashes
+          if [ -f "_update_temp/scripts/generate-manifest.js" ]; then
+            node _update_temp/scripts/generate-manifest.js
+          fi
+          
+          # Update version in manifest
+          TARGET_VERSION="${{ steps.target.outputs.TARGET_VERSION }}"
+          if [ -f ".lovable/template-manifest.json" ]; then
+            node -e "
+              const fs = require('fs');
+              const manifest = require('./.lovable/template-manifest.json');
+              manifest.version = '$TARGET_VERSION';
+              manifest.updatedAt = new Date().toISOString().split('T')[0];
+              fs.writeFileSync('./.lovable/template-manifest.json', JSON.stringify(manifest, null, 2));
+            "
+          fi
+
+      - name: Cleanup
+        run: rm -rf _update_temp
+
+      - name: Commit changes
+        if: ${{ github.event.inputs.dry_run != 'true' }}
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          
+          git add -A
+          
+          if git diff --staged --quiet; then
+            echo "No changes to commit"
+          else
+            CURRENT="${{ steps.current.outputs.CURRENT_VERSION }}"
+            TARGET="${{ steps.target.outputs.TARGET_VERSION }}"
+            git commit -m "chore: update Lovable Starter Kit $CURRENT → $TARGET" -m "Updated via Smart Merge workflow" -m "Source: https://github.com/Builera/lovable-starter-kit"
+            git push
+          fi
+
+      - name: Update complete
+        run: |
+          echo ""
+          echo "╔══════════════════════════════════════════════════════════════╗"
+          echo "║  ✅ UPDATE COMPLETE                                           ║"
+          echo "╠══════════════════════════════════════════════════════════════╣"
+          echo "║                                                               ║"
+          echo "║  Check for .new files if you had customized templates.        ║"
+          echo "║  Review and merge manually, then delete the .new files.       ║"
+          echo "║                                                               ║"
+          echo "╚══════════════════════════════════════════════════════════════╝"
