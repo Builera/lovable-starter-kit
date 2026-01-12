@@ -246,6 +246,38 @@ See `.github/PULL_REQUEST_TEMPLATE.md` for full checklist.
 
 ---
 
+## 🤖 Making AI Follow the Rules Automatically
+
+By default, Lovable AI doesn't automatically read your rules. You need to configure **Project Knowledge** to enforce the AI Operating System.
+
+### Quick Setup
+
+1. Open your project in Lovable
+2. Go to **Settings → Knowledge** (or **Project Knowledge**)
+3. Copy contents from `.lovable/boot-instruction.md`
+4. Paste into Project Knowledge and Save
+
+### What Happens After Setup
+
+AI will automatically:
+- ✅ Read context files before any code changes
+- ✅ Output a Context Summary (5 lines max)
+- ✅ Propose a Plan before implementing
+- ✅ Update CHANGELOG and memory files after completing
+
+### Detailed Guide
+
+See `docs/PROJECT-KNOWLEDGE-SETUP.md` for:
+- Step-by-step instructions with screenshots
+- Troubleshooting tips
+- Customization options
+
+### Alternative: Manual Prompts
+
+If you prefer not to use Project Knowledge, you can manually prepend `prompts/01-boot-prompt.md` to your requests.
+
+---
+
 ## 🎯 Best Practices
 
 ### Do
@@ -255,6 +287,7 @@ See `.github/PULL_REQUEST_TEMPLATE.md` for full checklist.
 - ✅ Create ADRs for significant decisions
 - ✅ Update CHANGELOG with every change
 - ✅ Follow the READ → PLAN → ACT → VERIFY → UPDATE workflow
+- ✅ Set up Project Knowledge (one-time setup)
 
 ### Don't
 
