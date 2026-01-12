@@ -26,6 +26,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   - `refactor-vs-fix.md` — When to refactor vs quick fix
 - **Quick Reference Card**: `QUICK-REFERENCE.md` one-page cheat sheet
 - PR template enforcing changelog and memory updates
+- **Auto-Enforce System**: `.lovable/boot-instruction.md` for Project Knowledge setup
+- **Setup Guide**: `docs/PROJECT-KNOWLEDGE-SETUP.md` with step-by-step instructions
 
 ### Changed
 
