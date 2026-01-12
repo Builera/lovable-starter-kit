@@ -19,11 +19,11 @@ jobs:
           MIRROR_PAT: ${{ secrets.MIRROR_PAT }}
         run: |
           # Configure git with your identity
-          git config user.name "your-name"
-          git config user.email "your-email@example.com"
+          git config user.name "Builera"
+          git config user.email "support@builera.app"
           
           # Add public repo as remote
-          git remote add public https://x-access-token:${MIRROR_PAT}@github.com/your-username/lovable-starter-kit.git
+          git remote add public https://x-access-token:${MIRROR_PAT}@github.com/Builera/lovable-starter-kit.git
           
           # Force push to public repo
           git push public main --force
