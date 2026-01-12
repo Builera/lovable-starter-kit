@@ -7,6 +7,10 @@ on:
         description: 'Starter Kit version (branch/tag)'
         required: false
         default: 'main'
+  # Auto-run when this workflow file is created/pushed
+  push:
+    paths:
+      - '.github/workflows/install-starter-kit.yml'
 
 jobs:
   install:
@@ -14,15 +18,26 @@ jobs:
     permissions:
       contents: write
     
+    # Skip if triggered by bot (prevent infinite loop)
+    if: github.actor != 'github-actions[bot]'
+    
     steps:
       - name: Checkout current repo
         uses: actions/checkout@v4
 
+      - name: Set version
+        id: version
+        run: |
+          # Use input if provided (workflow_dispatch), otherwise default to 'main'
+          VERSION="${{ github.event.inputs.version }}"
+          echo "version=${VERSION:-main}" >> $GITHUB_OUTPUT
+
       - name: Download Starter Kit
         run: |
-          curl -L https://github.com/Builera/lovable-starter-kit/archive/refs/heads/${{ github.event.inputs.version }}.zip -o starter-kit.zip
+          VERSION="${{ steps.version.outputs.version }}"
+          curl -L "https://github.com/Builera/lovable-starter-kit/archive/refs/heads/${VERSION}.zip" -o starter-kit.zip
           unzip starter-kit.zip
-          mv lovable-starter-kit-${{ github.event.inputs.version }} starter-kit
+          mv "lovable-starter-kit-${VERSION}" starter-kit
 
       - name: Install OS files (skip existing)
         run: |
