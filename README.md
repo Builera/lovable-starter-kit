@@ -425,9 +425,59 @@ Then go to GitHub → Actions → Run workflow.
 │   ├── validate-templates.js    # Content validation ⭐ NEW
 │   └── README.md                # Script documentation ⭐ NEW
 │
-├── CHANGELOG.md                 # Project changelog
+├── CHANGELOG.md                 # Your project changelog
+├── RELEASES.md                  # Starter Kit release history ⭐ NEW
 ├── VERSION.md                   # Semantic versioning ⭐ NEW
 └── QUICK-REFERENCE.md           # One-page cheat sheet
+```
+
+---
+
+## 🔄 Updating the Starter Kit ⭐ NEW
+
+The Smart Update System lets you safely update to newer versions while preserving your customizations.
+
+### How Smart Merge Works
+
+Files are classified into three categories:
+
+| Policy | Files | Behavior |
+|--------|-------|----------|
+| **Always** | `prompts/`, `scripts/`, `rules.md`, `QUICK-REFERENCE.md` | Overwritten on every update |
+| **Smart Merge** | `docs/adr/000-template.md`, `docs/architecture/overview.md` | Updated only if unchanged from original |
+| **Never** | `.lovable/memory/`, `CHANGELOG.md`, user ADRs | Never touched |
+
+### Running an Update
+
+1. Go to GitHub → **Actions** → **Update Lovable Starter Kit**
+2. Click **Run workflow**
+3. Options:
+   - `version`: Target branch/tag (default: main)
+   - `dry_run`: Preview changes without applying
+   - `force`: Backup and overwrite all files
+
+### Handling Conflicts
+
+When a **smart-merge** file has been customized:
+- Original file is preserved
+- New version saved as `filename.new`
+- Review and merge manually, then delete `.new` file
+
+### Example Update Log
+
+```
+Updating Lovable Starter Kit: 1.0.0 → 1.2.0
+
+📋 Release Notes:
+  v1.2.0: Added Export Knowledge feature
+  v1.1.0: Added Smart Merge update system
+
+✅ Updated (system): 12 files
+✅ Updated (unchanged template): 2 files
+⚠️ Conflict (customized): docs/architecture/overview.md → created .new
+⏭️ Preserved (user data): 10 files
+
+✨ Update complete!
 ```
 
 ---

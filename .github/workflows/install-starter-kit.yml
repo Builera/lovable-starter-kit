@@ -75,10 +75,11 @@ jobs:
               fi
             fi
           done
-
+          
           # Root files to copy (skip if exist)
+          # Note: RELEASES.md is the starter kit's changelog, NOT copied to user projects
           ROOT_FILES="CHANGELOG.md QUICK-REFERENCE.md VERSION.md"
-
+          
           for file in $ROOT_FILES; do
             if [ -f "_starter_kit_temp/$file" ] && [ ! -f "$file" ]; then
               echo "Copying root file: $file"
@@ -87,6 +88,23 @@ jobs:
               echo "Skipped (exists or not in source): $file"
             fi
           done
+          
+          # Copy update workflow (persistent, not self-deleting)
+          if [ -f "_starter_kit_temp/.github/workflows/update-starter-kit.yml" ]; then
+            mkdir -p .github/workflows
+            cp "_starter_kit_temp/.github/workflows/update-starter-kit.yml" ".github/workflows/update-starter-kit.yml"
+            echo "Copied: .github/workflows/update-starter-kit.yml"
+          fi
+
+      - name: Generate template manifest
+        run: |
+          # Generate manifest with file hashes for smart merge updates
+          if [ -f "_starter_kit_temp/scripts/generate-manifest.js" ]; then
+            echo "Generating template manifest..."
+            node _starter_kit_temp/scripts/generate-manifest.js
+          else
+            echo "Manifest generator not found, skipping..."
+          fi
 
       - name: Cleanup temp
         run: rm -rf _starter_kit_temp

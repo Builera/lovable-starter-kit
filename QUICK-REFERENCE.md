@@ -119,6 +119,39 @@ A task is complete when:
 
 ---
 
+## Updating the Starter Kit
+
+### Quick Update
+
+1. GitHub → Actions → "Update Lovable Starter Kit"
+2. Click "Run workflow"
+3. Review changes
+
+### Update Options
+
+| Option | Description |
+|--------|-------------|
+| `version` | Target branch/tag (default: main) |
+| `dry_run` | Preview only, no changes |
+| `force` | Backup and overwrite all |
+
+### File Policies
+
+| Policy | Files | What Happens |
+|--------|-------|--------------|
+| Always | prompts/, scripts/, rules.md | Overwritten |
+| Smart Merge | docs/adr/000-template.md | Update if unchanged |
+| Never | .lovable/memory/, CHANGELOG.md | Preserved |
+
+### Conflict Resolution
+
+If a template was customized:
+- File preserved as-is
+- New version → `filename.new`
+- Merge manually, delete `.new`
+
+---
+
 ## Common Gotchas
 
 | Gotcha | Prevention |

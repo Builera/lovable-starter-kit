@@ -1,6 +1,6 @@
-# Changelog - Lovable Starter Kit
+# Releases - Lovable Starter Kit
 
-All notable changes to this project will be documented in this file.
+All notable changes to the Starter Kit will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
@@ -17,21 +17,28 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - None
 
-### Deprecated
+---
 
-- None
+## [1.1.0] - 2026-01-12
 
-### Removed
+### Added
 
-- None
+- **Smart Update System**: New workflow for safely updating to newer versions
+  - `update-starter-kit.yml`: GitHub Actions workflow with pre-flight checks
+  - `template-manifest.json`: Tracks file hashes and update policies
+  - `generate-manifest.js`: Script to generate/update manifest
+  - `parse-releases.js`: Script to parse release notes and detect breaking changes
+- **File Classification**: Three-tier update policy (always, smart-merge, never)
+- **Conflict Resolution**: Creates `.new` files for customized templates
+- **Dry Run Mode**: Preview updates without applying changes
 
-### Fixed
+### Changed
 
-- None
-
-### Security
-
-- None
+- Renamed `CHANGELOG_1.md` to `RELEASES.md` for clarity
+- Updated `install-starter-kit.yml` to generate manifest and copy update workflow
+- Enhanced `scripts/README.md` with new script documentation
+- Updated `README.md` with "Updating the Starter Kit" section
+- Updated `QUICK-REFERENCE.md` with update commands
 
 ---
 

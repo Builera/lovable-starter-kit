@@ -1,6 +1,6 @@
 # Validation Scripts
 
-This directory contains scripts to validate your AI Project Operating System setup.
+This directory contains scripts to validate and manage your AI Project Operating System setup.
 
 ---
 
@@ -47,7 +47,57 @@ node scripts/validate-templates.js
 
 ---
 
-## Running Both Scripts
+### `generate-manifest.js` ⭐ NEW
+
+Generates or updates the template manifest for Smart Merge updates.
+
+```bash
+# Generate new manifest
+node scripts/generate-manifest.js
+
+# Update hashes only (preserve policies)
+node scripts/generate-manifest.js --update
+```
+
+**What it does:**
+- Creates `.lovable/template-manifest.json`
+- Calculates SHA256 hashes for all tracked files
+- Classifies files by update policy (always, smart-merge, never)
+
+**Use cases:**
+- After manual file changes
+- To verify manifest is in sync
+- Called automatically by install/update workflows
+
+---
+
+### `parse-releases.js` ⭐ NEW
+
+Parses RELEASES.md to extract version history and detect breaking changes.
+
+```bash
+# Show all releases
+node scripts/parse-releases.js
+
+# Show releases from v1.0.0 to v1.2.0
+node scripts/parse-releases.js --from 1.0.0 --to 1.2.0
+
+# Check for breaking changes
+node scripts/parse-releases.js --from 1.0.0 --to 2.0.0 --check-breaking
+
+# Output as JSON
+node scripts/parse-releases.js --json
+```
+
+**Options:**
+- `--from <version>`: Starting version (exclusive)
+- `--to <version>`: Ending version (inclusive)
+- `--check-breaking`: Exit code 1 if breaking changes found
+- `--json`: Output as JSON for programmatic use
+
+---
+
+## Running Multiple Scripts
 
 Run structure validation first, then content validation:
 
@@ -57,6 +107,9 @@ node scripts/validate-structure.js
 
 # Check content (only if structure is valid)
 node scripts/validate-templates.js
+
+# Verify manifest
+node scripts/generate-manifest.js --update
 ```
 
 ---
@@ -127,6 +180,8 @@ To add/remove required files, edit the `REQUIRED_FILES` array in `validate-struc
 
 To adjust placeholder detection, edit the `TEMPLATE_FILES` array in `validate-templates.js`.
 
+To modify file policies for updates, edit `FILE_POLICIES` in `generate-manifest.js`.
+
 ---
 
-*Scripts version: 1.0.0*
+*Scripts version: 1.1.0*
