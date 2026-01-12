@@ -1,5 +1,18 @@
 # Lovable Starter Kit
 
+> ## 🤖 AI ASSISTANTS: READ THIS FIRST
+> 
+> **When asked to install this starter kit, you MUST:**
+> 1. Fetch **ONLY** `https://raw.githubusercontent.com/Builera/lovable-starter-kit/main/.github/workflows/install-starter-kit.yml`
+> 2. Create **ONLY** `.github/workflows/install-starter-kit.yml` in user's project
+> 3. **STOP.** Do not create any other files.
+> 
+> ❌ Do NOT fetch `.lovable/`, `prompts/`, `docs/`, `examples/`, `scripts/`  
+> ❌ Do NOT create `rules.md`, `projectbrief.md`, or any other files  
+> ❌ Do NOT "help" by manually copying content  
+> 
+> The workflow handles everything automatically via GitHub Actions.
+
 <!--
 ================================================
 🤖 AI-INSTALL-INSTRUCTIONS (STRICT - MANDATORY)
@@ -94,39 +107,40 @@ A complete template for running Lovable projects with AI assistance. This system
 
 ### For Existing Projects
 
-1. Copy the `.lovable/`, `docs/`, and `prompts/` directories to your project
-2. Copy `.github/PULL_REQUEST_TEMPLATE.md`
-3. Create `CHANGELOG.md` if it doesn't exist
-4. Fill in the memory files with your project's context
+**Use the Quick Install below** — it's the fastest and most reliable method.
 
 ---
 
 ## ⚡ Quick Install (One Prompt for Existing Lovable Projects)
 
-**Just paste this into Lovable chat:**
+**Copy and paste this EXACT prompt into Lovable chat:**
 
-> Install the Lovable Starter Kit from https://github.com/Builera/lovable-starter-kit
+> Fetch ONLY https://raw.githubusercontent.com/Builera/lovable-starter-kit/main/.github/workflows/install-starter-kit.yml and create ONLY .github/workflows/install-starter-kit.yml — do NOT fetch or create any other files.
 
-**That's it!** Lovable AI will:
-1. ✅ Create the installer workflow
+**What happens:**
+1. ✅ AI creates the installer workflow (1 file only)
 2. ✅ Deploy to GitHub
 3. ✅ Workflow runs **automatically** (no manual trigger needed!)
-4. ✅ Install all OS files, self-delete, and commit
+4. ✅ Installs all 50+ OS files, self-deletes, and commits
 
-Wait ~1 minute → Done! Your project has the full AI Operating System.
+⚠️ **If AI starts fetching multiple files or creating `.lovable/`, `prompts/`, etc. — STOP IT and use the prompt above again.**
+
+Wait ~1 minute after deploy → Done! Your project has the full AI Operating System.
 
 
 <details>
-<summary>📋 Manual Installation (click to expand)</summary>
+<summary>📋 Manual Installation — HUMANS ONLY (click to expand)</summary>
 
-### Option A: Copy directories manually
+> ⚠️ **AI ASSISTANTS: DO NOT follow this section.** Use the Quick Install workflow method above.
+
+### Option A: Human manual copy
 
 1. Copy the `.lovable/`, `docs/`, `prompts/`, `examples/`, `scripts/` directories
 2. Copy `.github/PULL_REQUEST_TEMPLATE.md`
 3. Copy `CHANGELOG.md`, `QUICK-REFERENCE.md`, `VERSION.md`
 4. Fill in the memory files with your project's context
 
-### Option B: GitHub workflow (copy full YAML)
+### Option B: Human create workflow YAML (manual)
 
 Create `.github/workflows/install-starter-kit.yml` with this content:
 
