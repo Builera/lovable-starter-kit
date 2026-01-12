@@ -34,7 +34,14 @@ Please update the project's progress tracking for this week.
    - All changes from this week are logged
    - Entries are clear and descriptive
 
-5. **Optional - Update systemPatterns.md** if:
+5. **Update metrics.md** with:
+   - Tasks completed count
+   - Bugs fixed / introduced counts
+   - ADRs created count
+   - Calculate bug ratio
+   - Rate reflection quality (1-5)
+
+6. **Optional - Update systemPatterns.md** if:
    - New patterns were established this week
    - Existing patterns were refined
 
@@ -81,6 +88,10 @@ Add this to progress.md:
 | Bugs Fixed | [N] | [N] | ↑/↓/→ |
 | Bugs Introduced | [N] | [N] | ↑/↓/→ |
 | ADRs Created | [N] | [N] | ↑/↓/→ |
+| Bug Ratio | [N] | [N] | ↑/↓/→ |
+| Reflection Score | [1-5] | [1-5] | ↑/↓/→ |
+
+> Update `.lovable/memory/metrics.md` with these values.
 ```
 
 ---
@@ -101,6 +112,9 @@ Weekly update:
 
 4. Review CHANGELOG.md:
    - All changes logged?
+
+5. Update metrics.md:
+   - Tasks/Bugs/ADRs counts + bug ratio
 
 Add week summary to progress.md.
 ```
