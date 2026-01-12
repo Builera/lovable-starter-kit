@@ -1,6 +1,11 @@
 # AI Project Operating System
 
+![Version](https://img.shields.io/badge/version-1.0.0-blue.svg)
+![Status](https://img.shields.io/badge/status-stable-green.svg)
+
 A complete template for running Lovable projects with AI assistance. This system ensures consistent workflows, knowledge retention, and learning from mistakes.
+
+**Based on international AI standards:** ReAct pattern, PDCA cycle, agent memory architecture, and self-healing protocols.
 
 ---
 
@@ -67,8 +72,21 @@ A complete template for running Lovable projects with AI assistance. This system
 ├── .github/
 │   └── PULL_REQUEST_TEMPLATE.md # PR checklist
 │
+├── examples/
+│   ├── projectbrief-example.md  # Filled template example ⭐ NEW
+│   ├── techContext-example.md   # Filled template example ⭐ NEW
+│   ├── activeContext-example.md # Filled template example ⭐ NEW
+│   ├── mistakes-example.md      # Filled template example ⭐ NEW
+│   └── adr-example.md           # Filled template example ⭐ NEW
+│
+├── scripts/
+│   ├── validate-structure.js    # Structure validation ⭐ NEW
+│   ├── validate-templates.js    # Content validation ⭐ NEW
+│   └── README.md                # Script documentation ⭐ NEW
+│
 ├── CHANGELOG.md                 # Project changelog
-└── QUICK-REFERENCE.md           # One-page cheat sheet ⭐ NEW
+├── VERSION.md                   # Semantic versioning ⭐ NEW
+└── QUICK-REFERENCE.md           # One-page cheat sheet
 ```
 
 ---
@@ -275,6 +293,47 @@ See `docs/PROJECT-KNOWLEDGE-SETUP.md` for:
 ### Alternative: Manual Prompts
 
 If you prefer not to use Project Knowledge, you can manually prepend `prompts/01-boot-prompt.md` to your requests.
+
+---
+
+## 🔢 Versioning
+
+This project uses [Semantic Versioning](https://semver.org/):
+- **MAJOR:** Breaking changes to workflow or file structure
+- **MINOR:** New features, backward compatible
+- **PATCH:** Bug fixes, documentation updates
+
+Current version: See `VERSION.md`
+
+---
+
+## 📊 Validation
+
+Validate your OS setup with the included scripts:
+
+```bash
+# Check all required files exist
+node scripts/validate-structure.js
+
+# Check templates have real content
+node scripts/validate-templates.js
+```
+
+See `scripts/README.md` for details.
+
+---
+
+## 📚 Examples
+
+The `examples/` directory contains filled templates for reference:
+
+| File | Purpose |
+|------|---------|
+| `projectbrief-example.md` | How to fill the project brief |
+| `techContext-example.md` | How to document tech stack |
+| `activeContext-example.md` | How to track current state |
+| `mistakes-example.md` | How to document bugs |
+| `adr-example.md` | How to write ADRs |
 
 ---
 
