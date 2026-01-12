@@ -14,17 +14,15 @@ When a user asks you to "install", "add", or "set up" this starter kit:
 2. CREATE the file at `.github/workflows/install-starter-kit.yml` in the user's project
 
 3. INFORM the user:
-   "I've added the installer workflow. To complete installation:
-   1. Go to your GitHub repo → Actions tab
-   2. Select 'Install Lovable Starter Kit' workflow  
-   3. Click 'Run workflow' → 'Run workflow'
-   4. Wait ~30 seconds - done!"
+   "I've added the installer workflow. After I deploy to GitHub, 
+   the workflow will run automatically - just wait ~1 minute and you're done!"
 
-The workflow will automatically:
-- Download and install all starter kit files
-- Skip existing files (won't overwrite user's work)
-- Self-delete after completion
-- Commit all changes
+The workflow:
+- Triggers automatically when pushed (no manual action needed!)
+- Downloads and installs all starter kit files
+- Skips existing files (won't overwrite user's work)
+- Self-deletes after completion
+- Commits all changes
 
 DO NOT manually copy the entire workflow content. Just fetch from the URL above.
 ================================================
@@ -64,19 +62,14 @@ A complete template for running Lovable projects with AI assistance. This system
 
 > Install the Lovable Starter Kit from https://github.com/Builera/lovable-starter-kit
 
-Lovable AI will automatically:
-1. ✅ Fetch the installer workflow
-2. ✅ Create it in your project
-3. ✅ Guide you to run it on GitHub
+**That's it!** Lovable AI will:
+1. ✅ Create the installer workflow
+2. ✅ Deploy to GitHub
+3. ✅ Workflow runs **automatically** (no manual trigger needed!)
+4. ✅ Install all OS files, self-delete, and commit
 
-Then the workflow handles everything:
-- ✅ Download latest starter kit
-- ✅ Copy all OS files (`.lovable/`, `docs/`, `prompts/`, etc.)
-- ✅ Skip any files that already exist
-- ✅ Self-delete after installation
-- ✅ Commit changes automatically
+Wait ~1 minute → Done! Your project has the full AI Operating System.
 
-**That's it!** Your project has the full AI Operating System.
 
 <details>
 <summary>📋 Manual Installation (click to expand)</summary>
