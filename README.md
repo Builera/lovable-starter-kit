@@ -28,6 +28,109 @@ A complete template for running Lovable projects with AI assistance. This system
 
 ---
 
+## ⚡ Quick Install (One-Click for Existing Lovable Projects)
+
+**One prompt, one click, done!**
+
+### Step 1: Create the installer workflow
+
+Copy and paste this prompt into your Lovable project chat:
+
+```
+Create a GitHub workflow file at `.github/workflows/install-starter-kit.yml`:
+
+name: Install Lovable Starter Kit
+
+on:
+  workflow_dispatch:
+    inputs:
+      version:
+        description: 'Starter Kit version (branch/tag)'
+        required: false
+        default: 'main'
+
+jobs:
+  install:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    
+    steps:
+      - name: Checkout current repo
+        uses: actions/checkout@v4
+
+      - name: Download Starter Kit
+        run: |
+          curl -L https://github.com/Builera/lovable-starter-kit/archive/refs/heads/${{ github.event.inputs.version }}.zip -o starter-kit.zip
+          unzip starter-kit.zip
+          mv lovable-starter-kit-${{ github.event.inputs.version }} starter-kit
+
+      - name: Install OS files (skip existing)
+        run: |
+          copy_if_not_exists() {
+            src="$1"
+            dest="$2"
+            if [ ! -e "$dest" ]; then
+              mkdir -p "$(dirname "$dest")"
+              cp -r "$src" "$dest"
+              echo "✅ Copied: $dest"
+            else
+              echo "⏭️ Skipped (exists): $dest"
+            fi
+          }
+          
+          for dir in .lovable docs prompts examples scripts; do
+            if [ -d "starter-kit/$dir" ]; then
+              find "starter-kit/$dir" -type f | while read src_file; do
+                dest_file="${src_file#starter-kit/}"
+                copy_if_not_exists "$src_file" "$dest_file"
+              done
+            fi
+          done
+          
+          for file in CHANGELOG.md QUICK-REFERENCE.md VERSION.md; do
+            copy_if_not_exists "starter-kit/$file" "$file"
+          done
+          
+          mkdir -p .github
+          copy_if_not_exists "starter-kit/.github/PULL_REQUEST_TEMPLATE.md" ".github/PULL_REQUEST_TEMPLATE.md"
+          
+          rm -rf starter-kit starter-kit.zip
+
+      - name: Self-delete workflow file
+        run: |
+          rm -f .github/workflows/install-starter-kit.yml
+          rmdir .github/workflows 2>/dev/null || true
+
+      - name: Commit changes
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add -A
+          git commit -m "chore: Install Lovable Starter Kit" || echo "No changes"
+          git push
+```
+
+### Step 2: Run the workflow
+
+1. Go to your GitHub repository → **Actions** tab
+2. Select **"Install Lovable Starter Kit"** workflow
+3. Click **"Run workflow"** → **"Run workflow"**
+4. Wait ~30 seconds for completion
+
+### Step 3: Done! 🎉
+
+The workflow will:
+- ✅ Download latest starter kit from `Builera/lovable-starter-kit`
+- ✅ Copy all OS files (`.lovable/`, `docs/`, `prompts/`, etc.)
+- ✅ Skip any files that already exist in your project
+- ✅ Self-delete after installation
+- ✅ Commit changes automatically
+
+Your project now has the full AI Operating System!
+
+---
+
 ## 📁 Directory Structure
 
 ```
