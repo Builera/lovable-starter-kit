@@ -1,7 +1,8 @@
-# AI Project Operating System
+# Lovable Starter Kit
 
 ![Version](https://img.shields.io/badge/version-1.0.0-blue.svg)
 ![Status](https://img.shields.io/badge/status-stable-green.svg)
+[![GitHub](https://img.shields.io/badge/GitHub-lovable--starter--kit-blue?logo=github)](https://github.com/your-username/lovable-starter-kit)
 
 A complete template for running Lovable projects with AI assistance. This system ensures consistent workflows, knowledge retention, and learning from mistakes.
 
