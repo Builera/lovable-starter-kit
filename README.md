@@ -243,16 +243,7 @@ jobs:
           if git diff --staged --quiet; then
             echo "No changes to commit"
           else
-            git commit -m "chore: install Lovable AI Project Operating System
-
-- Added .lovable/ directory with rules and memory bank
-- Added docs/ with architecture templates and ADRs  
-- Added prompts/ with reusable AI prompts
-- Added examples/ with filled template references
-- Added scripts/ for validation
-- Installer workflow auto-removed after install
-
-Installed from: https://github.com/Builera/lovable-starter-kit"
+            git commit -m "chore: install Lovable AI Project Operating System from https://github.com/Builera/lovable-starter-kit"
             git push
           fi
 
