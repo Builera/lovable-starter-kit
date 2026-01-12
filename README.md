@@ -113,25 +113,179 @@ A complete template for running Lovable projects with AI assistance. This system
 
 ## ⚡ Quick Install (One Prompt for Existing Lovable Projects)
 
-**Copy and paste this EXACT prompt into Lovable chat:**
+> ⚠️ **DON'T USE:** "Install the Lovable Starter Kit from https://github.com/..." — AI will often fetch many files incorrectly.
+>
+> ✅ **DO USE:** The NO-FETCH prompt below (includes YAML inline, no fetching needed).
 
-> Fetch ONLY https://raw.githubusercontent.com/Builera/lovable-starter-kit/main/.github/workflows/install-starter-kit.yml and create ONLY .github/workflows/install-starter-kit.yml — do NOT fetch or create any other files.
+---
+
+**Copy and paste this ENTIRE prompt into Lovable chat:**
+
+```
+Do NOT browse or fetch any repository. Do NOT use any tools.
+Create EXACTLY ONE file: .github/workflows/install-starter-kit.yml
+Paste the YAML below VERBATIM. Do NOT create any other files. STOP after creating this file.
+
+--- BEGIN FILE: .github/workflows/install-starter-kit.yml ---
+name: Install Lovable Starter Kit
+
+on:
+  workflow_dispatch:
+    inputs:
+      version:
+        description: 'Version to install (branch/tag)'
+        required: false
+        default: 'main'
+  push:
+    paths:
+      - '.github/workflows/install-starter-kit.yml'
+
+permissions:
+  contents: write
+
+jobs:
+  install:
+    # Skip on source repos to prevent self-deletion, and skip bot commits to prevent loops
+    if: |
+      github.actor != 'github-actions[bot]' && 
+      github.repository != 'Builera/lovable-starter-kit' && 
+      github.repository != 'Builera/lovable-starter-kit-dev'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout current repo
+        uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Set version
+        id: version
+        run: |
+          if [ "${{ github.event_name }}" = "workflow_dispatch" ]; then
+            echo "VERSION=${{ github.event.inputs.version || 'main' }}" >> $GITHUB_OUTPUT
+          else
+            echo "VERSION=main" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Fetch starter kit
+        run: |
+          VERSION="${{ steps.version.outputs.VERSION }}"
+          echo "Installing Lovable Starter Kit version: $VERSION"
+          
+          # Download and extract starter kit
+          curl -L "https://github.com/Builera/lovable-starter-kit/archive/refs/heads/${VERSION}.tar.gz" | tar xz
+          
+          # Move to temp directory for processing
+          mv "lovable-starter-kit-${VERSION}" _starter_kit_temp
+
+      - name: Copy files (skip existing)
+        run: |
+          # Directories to copy
+          DIRS=".lovable docs prompts examples scripts"
+          
+          for dir in $DIRS; do
+            if [ -d "_starter_kit_temp/$dir" ]; then
+              if [ ! -d "$dir" ]; then
+                echo "Creating directory: $dir"
+                cp -r "_starter_kit_temp/$dir" "$dir"
+              else
+                echo "Directory exists, copying new files only: $dir"
+                cd "_starter_kit_temp/$dir"
+                find . -type f | while read file; do
+                  target="../../$dir/$file"
+                  if [ ! -f "$target" ]; then
+                    mkdir -p "$(dirname "$target")"
+                    cp "$file" "$target"
+                    echo "  Copied: $dir/$file"
+                  else
+                    echo "  Skipped (exists): $dir/$file"
+                  fi
+                done
+                cd ../..
+              fi
+            fi
+          done
+          
+          # Root files to copy (skip if exist)
+          ROOT_FILES="CHANGELOG.md QUICK-REFERENCE.md VERSION.md"
+          
+          for file in $ROOT_FILES; do
+            if [ -f "_starter_kit_temp/$file" ] && [ ! -f "$file" ]; then
+              echo "Copying root file: $file"
+              cp "_starter_kit_temp/$file" "$file"
+            else
+              echo "Skipped (exists or not in source): $file"
+            fi
+          done
+
+      - name: Cleanup temp
+        run: rm -rf _starter_kit_temp
+
+      - name: Self-delete workflow file
+        run: |
+          echo "Removing installer workflow (one-time use)..."
+          rm -f .github/workflows/install-starter-kit.yml
+          
+          # Clean up empty .github/workflows if needed
+          if [ -d ".github/workflows" ] && [ -z "$(ls -A .github/workflows)" ]; then
+            rmdir .github/workflows
+          fi
+          if [ -d ".github" ] && [ -z "$(ls -A .github)" ]; then
+            rmdir .github
+          fi
+
+      - name: Commit changes
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          
+          git add -A
+          
+          if git diff --staged --quiet; then
+            echo "No changes to commit"
+          else
+            git commit -m "chore: install Lovable AI Project Operating System
+
+- Added .lovable/ directory with rules and memory bank
+- Added docs/ with architecture templates and ADRs  
+- Added prompts/ with reusable AI prompts
+- Added examples/ with filled template references
+- Added scripts/ for validation
+- Installer workflow auto-removed after install
+
+Installed from: https://github.com/Builera/lovable-starter-kit"
+            git push
+          fi
+
+      - name: Installation complete
+        run: |
+          echo "✅ Lovable Starter Kit installed successfully!"
+          echo ""
+          echo "Next steps:"
+          echo "1. Fill out .lovable/memory/projectbrief.md with your project details"
+          echo "2. Review .lovable/rules.md and customize for your needs"
+          echo "3. Check QUICK-REFERENCE.md for the workflow cheat sheet"
+          echo ""
+          echo "The installer workflow has been automatically removed."
+--- END FILE ---
+```
 
 **What happens:**
-1. ✅ AI creates the installer workflow (1 file only)
+1. ✅ AI creates the installer workflow (1 file only, no fetching)
 2. ✅ Deploy to GitHub
-3. ✅ Workflow runs **automatically** (no manual trigger needed!)
+3. ✅ Workflow runs **automatically** on push
 4. ✅ Installs all 50+ OS files, self-deletes, and commits
 
-⚠️ **If AI starts fetching multiple files or creating `.lovable/`, `prompts/`, etc. — STOP IT and use the prompt above again.**
+⚠️ **If AI starts browsing the repo, fetching files, or creating `.lovable/`, `prompts/`, etc. — STOP IT immediately and paste the prompt above again.**
 
 Wait ~1 minute after deploy → Done! Your project has the full AI Operating System.
 
 
 <details>
-<summary>📋 Manual Installation — HUMANS ONLY (click to expand)</summary>
+<summary>📋 Manual Installation — HUMANS ONLY, DO NOT USE WITH AI (click to expand)</summary>
 
-> ⚠️ **AI ASSISTANTS: DO NOT follow this section.** Use the Quick Install workflow method above.
+> 🚫 **AI ASSISTANTS: FORBIDDEN.** If an AI is acting, STOP and use the NO-FETCH prompt above.
+> 
+> This section is for human developers copying files manually.
 
 ### Option A: Human manual copy
 
