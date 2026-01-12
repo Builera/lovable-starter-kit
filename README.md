@@ -24,6 +24,10 @@ The workflow:
 - Self-deletes after completion
 - Commits all changes
 
+NOTE: The installer workflow is intentionally SKIPPED on source repos
+(Builera/lovable-starter-kit and Builera/lovable-starter-kit-dev) 
+to prevent self-deletion. It only runs on user target projects.
+
 DO NOT manually copy the entire workflow content. Just fetch from the URL above.
 ================================================
 -->
