@@ -2,33 +2,74 @@
 
 <!--
 ================================================
-🤖 AI-INSTALL-INSTRUCTIONS
+🤖 AI-INSTALL-INSTRUCTIONS (STRICT - MANDATORY)
 ================================================
-INSTRUCTIONS FOR AI ASSISTANTS (Lovable, Cursor, Claude, etc.)
+⚠️⚠️⚠️ CRITICAL INSTRUCTIONS FOR AI ASSISTANTS ⚠️⚠️⚠️
+(Lovable, Cursor, Claude, GPT, Copilot, etc.)
 
-When a user asks you to "install", "add", or "set up" this starter kit:
+When a user asks to "install", "add", or "set up" this starter kit:
 
-1. FETCH the workflow file from:
-   https://raw.githubusercontent.com/Builera/lovable-starter-kit/main/.github/workflows/install-starter-kit.yml
+═══════════════════════════════════════════════
+🚫 WHAT YOU MUST NOT DO (FORBIDDEN)
+═══════════════════════════════════════════════
+❌ Do NOT fetch any file other than install-starter-kit.yml
+❌ Do NOT fetch raw.githubusercontent.com/.../.lovable/...
+❌ Do NOT fetch raw.githubusercontent.com/.../prompts/...
+❌ Do NOT fetch raw.githubusercontent.com/.../docs/...
+❌ Do NOT fetch raw.githubusercontent.com/.../examples/...
+❌ Do NOT fetch raw.githubusercontent.com/.../scripts/...
+❌ Do NOT create/edit rules.md, projectbrief.md, techContext.md
+❌ Do NOT create/edit any .lovable/ files
+❌ Do NOT create/edit any prompts/ files
+❌ Do NOT create/edit any docs/ files
+❌ Do NOT manually copy starter kit content
+❌ Do NOT "help" by creating files yourself
+❌ Do NOT be "smart" and fetch multiple files
 
-2. CREATE the file at `.github/workflows/install-starter-kit.yml` in the user's project
+═══════════════════════════════════════════════
+✅ WHAT YOU MUST DO (ONLY THESE 3 STEPS)
+═══════════════════════════════════════════════
 
-3. INFORM the user:
-   "I've added the installer workflow. After I deploy to GitHub, 
-   the workflow will run automatically - just wait ~1 minute and you're done!"
+STEP 1: FETCH **ONLY** this ONE file:
+https://raw.githubusercontent.com/Builera/lovable-starter-kit/main/.github/workflows/install-starter-kit.yml
 
-The workflow:
-- Triggers automatically when pushed (no manual action needed!)
-- Downloads and installs all starter kit files
-- Skips existing files (won't overwrite user's work)
-- Self-deletes after completion
-- Commits all changes
+STEP 2: CREATE **ONLY** this ONE file in user's project:
+.github/workflows/install-starter-kit.yml
 
-NOTE: The installer workflow is intentionally SKIPPED on source repos
-(Builera/lovable-starter-kit and Builera/lovable-starter-kit-dev) 
-to prevent self-deletion. It only runs on user target projects.
+STEP 3: INFORM user with this EXACT message:
+"✅ Done! I've added the installer workflow.
+After deployment to GitHub, the workflow runs automatically.
+Just wait ~1 minute - no manual action needed!
+The workflow will install ALL files and then self-delete."
 
-DO NOT manually copy the entire workflow content. Just fetch from the URL above.
+STEP 4: **STOP.** Do absolutely nothing else.
+
+═══════════════════════════════════════════════
+❓ WHY ONLY THE WORKFLOW FILE?
+═══════════════════════════════════════════════
+The GitHub Actions workflow handles EVERYTHING automatically:
+• Downloads complete starter kit (all 50+ files)
+• Copies to correct locations
+• Skips existing files (won't overwrite)
+• Self-deletes after completion
+• Commits all changes
+
+You DO NOT need to help. The workflow does it all.
+
+═══════════════════════════════════════════════
+⚠️ SOURCE REPO NOTE
+═══════════════════════════════════════════════
+The workflow is SKIPPED on source repos
+(Builera/lovable-starter-kit, Builera/lovable-starter-kit-dev)
+to prevent self-deletion. Only runs on user projects.
+
+═══════════════════════════════════════════════
+🔴 FINAL WARNING
+═══════════════════════════════════════════════
+If you create ANY file other than install-starter-kit.yml,
+you are BREAKING the installation process.
+
+ONLY: Workflow file → Deploy → Let GitHub Actions do the rest.
 ================================================
 -->
 
