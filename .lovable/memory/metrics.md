@@ -1,6 +1,6 @@
 # Project Metrics
 
-> Track project health and AI OS effectiveness over time.
+> Track project health and AI effectiveness.
 
 ---
 
@@ -8,22 +8,27 @@
 
 | Week | Tasks Done | Bugs Fixed | Bugs Introduced | ADRs Created | Reflection Score | Bug Ratio |
 |------|------------|------------|-----------------|--------------|------------------|-----------|
-| 2026-W02 | 8 | 0 | 0 | 0 | N/A | 0.00 |
+| [Date] | 0 | 0 | 0 | 0 | - | - |
 
-> **How to update:** Add a new row at the end of each week during weekly update.
+<!-- EXAMPLE - Delete after first real entry
+
+| 2024-01-15 | 12 | 3 | 1 | 1 | 4/5 | 0.08 |
+| 2024-01-08 | 8 | 2 | 2 | 0 | 3/5 | 0.25 |
+
+-->
 
 ---
 
 ## Metric Definitions
 
-| Metric | Definition | How to Count |
-|--------|------------|--------------|
-| **Tasks Done** | Items moved to "Done ✅" in progress.md | Count checkboxes marked [x] this week |
-| **Bugs Fixed** | Entries added to mistakes.md | Count new entries in mistakes.md |
-| **Bugs Introduced** | New bugs discovered this week | Count bugs reported/found |
-| **ADRs Created** | New ADR files created | Count new files in docs/adr/ |
-| **Reflection Score** | Self-rated quality of reflections (1-5) | Rate after weekly reflection |
-| **Bug Ratio** | Bugs Introduced / Tasks Done | Lower is better (target: < 0.3) |
+| Metric | How to Count |
+|--------|--------------|
+| Tasks Done | Completed items from progress.md |
+| Bugs Fixed | Issues resolved this week |
+| Bugs Introduced | New bugs discovered from this week's work |
+| ADRs Created | New architecture decision records |
+| Reflection Score | Average quality of reflections (1-5) |
+| Bug Ratio | Bugs Introduced / Tasks Done |
 
 ---
 
@@ -31,67 +36,45 @@
 
 | Metric | Target | Warning | Critical |
 |--------|--------|---------|----------|
-| Bug Ratio | < 0.2 | 0.2 - 0.4 | > 0.4 |
-| ADR Coverage | 100% arch changes | 80-99% | < 80% |
-| Reflection Score | 4+ | 3-4 | < 3 |
-| Weekly Tasks | 5+ | 3-5 | < 3 |
+| Bug Ratio | < 0.1 | 0.1 - 0.2 | > 0.2 |
+| ADR Coverage | 1/major feature | - | 0 for 2+ weeks |
+| Reflection Score | ≥ 4 | 3 | < 3 |
+| Weekly Tasks | ≥ 5 | 3-4 | < 3 |
 
 ---
 
 ## Monthly Summary
 
-### January 2026
+### [Month YYYY]
 
 | Week | Highlight | Challenge |
 |------|-----------|-----------|
-| W02 | Initial OS setup complete | Learning curve with new workflow |
-| W03 | | |
-| W04 | | |
-| W05 | | |
+| Week 1 | [Achievement] | [Difficulty] |
+| Week 2 | [Achievement] | [Difficulty] |
+| Week 3 | [Achievement] | [Difficulty] |
+| Week 4 | [Achievement] | [Difficulty] |
 
-**Month Totals:**
-- Tasks completed: 8
-- Bugs fixed: 0
-- ADRs created: 0
-- Average bug ratio: 0.00
+**Monthly Totals:**
+- Tasks Completed: 0
+- Bugs Fixed: 0
+- Bug Ratio: -
 
 ---
 
 ## Trend Analysis
 
-### Last 4 Weeks Trend
+**Last 4 Weeks:**
 
 ```
-Tasks Done:    [████████░░] 8
-Bug Ratio:     [░░░░░░░░░░] 0.00 ✅ Excellent
-ADR Coverage:  [░░░░░░░░░░] N/A
+Tasks:    [░░░░░░░░░░] 
+Bugs:     [░░░░░░░░░░]
+Quality:  [░░░░░░░░░░]
 ```
 
-### Observations
-
-- **Week 02:** Initial setup week, focused on documentation and OS structure.
+**Observations:**
+- [Trend observation 1]
+- [Trend observation 2]
 
 ---
 
-## How This Helps
-
-1. **Visibility:** See project health at a glance
-2. **Trends:** Identify patterns (e.g., bug spikes after large features)
-3. **Accountability:** Track follow-through on process
-4. **Improvement:** Data-driven decisions about workflow
-
----
-
-## Quick Update Template
-
-Copy this when adding a new week:
-
-```markdown
-| 2026-WXX | [tasks] | [fixed] | [introduced] | [adrs] | [1-5] | [ratio] |
-```
-
-Calculate bug ratio: `Bugs Introduced / Tasks Done`
-
----
-
-*Last updated: 2026-01-12*
+*Last updated: [Date]*
