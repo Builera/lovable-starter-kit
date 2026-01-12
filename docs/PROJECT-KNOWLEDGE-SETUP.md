@@ -1,100 +1,100 @@
-# Hướng Dẫn Cài Đặt Project Knowledge
+# Project Knowledge Setup Guide
 
-> Hướng dẫn từng bước để AI Lovable tự động tuân theo AI Operating System.
-
----
-
-## 🎯 Mục Tiêu
-
-Sau khi cài đặt, AI Lovable sẽ **tự động**:
-- Đọc context files trước khi code
-- Xuất Context Summary
-- Đề xuất Plan trước khi implement
-- Cập nhật memory files sau khi hoàn thành
+> Step-by-step instructions to make Lovable AI automatically follow the AI Operating System.
 
 ---
 
-## 📋 Các Bước Cài Đặt
+## 🎯 Goal
 
-### Bước 1: Mở Project Settings
-
-1. Mở project của bạn trong Lovable
-2. Click vào **tên project** ở góc trên bên trái
-3. Chọn **"Settings"** từ menu dropdown
-
-### Bước 2: Truy cập Project Knowledge
-
-1. Trong Settings, tìm mục **"Knowledge"** hoặc **"Project Knowledge"**
-2. Click vào để mở editor
-
-### Bước 3: Copy Boot Instruction
-
-1. Mở file `.lovable/boot-instruction.md` trong project
-2. Copy **toàn bộ nội dung** (từ "# AI Operating System" đến hết)
-3. Paste vào Project Knowledge editor
-
-### Bước 4: Lưu Settings
-
-1. Click **"Save"** hoặc **"Apply"**
-2. Đóng Settings dialog
+After setup, Lovable AI will **automatically**:
+- Read context files before coding
+- Output a Context Summary
+- Propose a Plan before implementing
+- Update memory files after completion
 
 ---
 
-## ✅ Kiểm Tra Cài Đặt Thành Công
+## 📋 Setup Steps
 
-Sau khi cài đặt, gửi một request đơn giản như:
+### Step 1: Open Project Settings
+
+1. Open your project in Lovable
+2. Click on the **project name** in the top-left corner
+3. Select **"Settings"** from the dropdown menu
+
+### Step 2: Access Project Knowledge
+
+1. In Settings, find the **"Knowledge"** or **"Project Knowledge"** section
+2. Click to open the editor
+
+### Step 3: Copy Boot Instruction
+
+1. Open the file `.lovable/boot-instruction.md` in your project
+2. Copy **all contents** (from "# AI Operating System" to the end)
+3. Paste into the Project Knowledge editor
+
+### Step 4: Save Settings
+
+1. Click **"Save"** or **"Apply"**
+2. Close the Settings dialog
+
+---
+
+## ✅ Verify Setup Success
+
+After setup, send a simple request like:
 
 ```
 Add a console.log to the main file
 ```
 
-AI sẽ phản hồi với:
-1. **Context Summary** (5 dòng tóm tắt project)
-2. **Plan** (danh sách file sẽ modify)
-3. Sau khi implement: cập nhật CHANGELOG và memory files
+AI should respond with:
+1. **Context Summary** (5-line project summary)
+2. **Plan** (list of files to modify)
+3. After implementation: updates to CHANGELOG and memory files
 
-Nếu AI không làm điều này, kiểm tra lại Project Knowledge đã được lưu chưa.
+If AI doesn't do this, verify that Project Knowledge was saved correctly.
 
 ---
 
 ## 🔧 Troubleshooting
 
-### AI không đọc context files
+### AI doesn't read context files
 
-**Nguyên nhân:** Project Knowledge chưa được lưu đúng cách
+**Cause:** Project Knowledge wasn't saved properly
 
-**Giải pháp:**
-1. Mở lại Settings → Knowledge
-2. Kiểm tra nội dung đã được paste đầy đủ
-3. Đảm bảo click Save
+**Solution:**
+1. Re-open Settings → Knowledge
+2. Verify the content was pasted completely
+3. Make sure you clicked Save
 
-### AI đọc nhưng không output Context Summary
+### AI reads but doesn't output Context Summary
 
-**Nguyên nhân:** Instruction có thể bị conflict với system prompt
+**Cause:** Instruction may conflict with system prompt
 
-**Giải pháp:** 
-Thử thêm dòng này vào đầu Project Knowledge:
+**Solution:** 
+Try adding this line at the top of Project Knowledge:
 ```
 IMPORTANT: Always follow these instructions for every request.
 ```
 
-### AI không cập nhật memory files
+### AI doesn't update memory files
 
-**Nguyên nhân:** AI có thể skip UPDATE step
+**Cause:** AI may skip the UPDATE step
 
-**Giải pháp:** 
-Thêm reminder vào cuối mỗi request của bạn:
+**Solution:** 
+Add a reminder at the end of your requests:
 ```
 Remember to update CHANGELOG and memory files after completing.
 ```
 
 ---
 
-## 📝 Tùy Chỉnh
+## 📝 Customization
 
-Bạn có thể tùy chỉnh `.lovable/boot-instruction.md` theo nhu cầu:
+You can customize `.lovable/boot-instruction.md` as needed:
 
-### Thêm Project-Specific Rules
+### Add Project-Specific Rules
 
 ```markdown
 ## Project-Specific Rules
@@ -104,7 +104,7 @@ Bạn có thể tùy chỉnh `.lovable/boot-instruction.md` theo nhu cầu:
 - Use Tailwind CSS for styling
 ```
 
-### Thêm Forbidden Actions
+### Add Forbidden Actions
 
 ```markdown
 ## Forbidden
@@ -116,16 +116,16 @@ Bạn có thể tùy chỉnh `.lovable/boot-instruction.md` theo nhu cầu:
 
 ---
 
-## 🔄 Cập Nhật
+## 🔄 Updating
 
-Khi rules thay đổi:
-1. Cập nhật `.lovable/boot-instruction.md`
-2. Copy lại nội dung mới vào Project Knowledge
+When rules change:
+1. Update `.lovable/boot-instruction.md`
+2. Copy the new content to Project Knowledge
 3. Save Settings
 
 ---
 
-## 📚 Tham Khảo
+## 📚 References
 
 - [Lovable Project Knowledge Docs](https://docs.lovable.dev/)
 - `.lovable/rules.md` - Full rules documentation
@@ -133,4 +133,4 @@ Khi rules thay đổi:
 
 ---
 
-*Setup chỉ cần làm 1 lần. Sau đó AI sẽ tự động tuân theo rules!*
+*Setup only needs to be done once. After that, AI will automatically follow the rules!*
