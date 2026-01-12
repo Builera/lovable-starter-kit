@@ -1,0 +1,38 @@
+# Checkpoints Directory
+
+This directory stores context snapshots at important milestones.
+
+## Checkpoint Naming Convention
+`checkpoint-YYYY-MM-DD-<milestone-name>.md`
+
+## Examples
+- `checkpoint-2024-01-15-mvp-complete.md`
+- `checkpoint-2024-01-20-auth-implemented.md`
+- `checkpoint-2024-01-25-before-refactor.md`
+
+## When to Create Checkpoints
+- Before major refactoring
+- After completing significant feature
+- Before risky changes
+- At version releases
+- When build is stable after fixes
+
+## Checkpoint Template
+See `prompts/08-session-handoff.md` for full template.
+
+Quick checkpoint format:
+```markdown
+# Checkpoint: [Name]
+**Date:** YYYY-MM-DD
+**Build Status:** Passing/Failing
+**Key State:**
+- [Current feature status]
+- [Known issues]
+- [Important decisions made]
+
+**Files at this point:**
+- [List key files and their state]
+
+**To restore:**
+- [Steps to return to this state if needed]
+```

@@ -34,6 +34,12 @@ A complete template for running Lovable projects with AI assistance. This system
 │       ├── activeContext.md     # Current state (update often)
 │       ├── progress.md          # Sprint/weekly tracking
 │       ├── systemPatterns.md    # Code patterns used
+│       ├── reflections.md       # Post-task learnings ⭐ NEW
+│       ├── checkpoints/         # Context snapshots ⭐ NEW
+│       ├── decision-trees/      # Decision guides ⭐ NEW
+│       │   ├── error-handling.md
+│       │   ├── component-choice.md
+│       │   └── refactor-vs-fix.md
 │       └── patterns/
 │           ├── successes.md     # What worked well
 │           └── mistakes.md      # Bugs & lessons learned
@@ -53,12 +59,16 @@ A complete template for running Lovable projects with AI assistance. This system
 │   ├── 02-feature-request.md    # Feature request template
 │   ├── 03-bug-fix.md            # Bug fix template
 │   ├── 04-architecture-change.md # Architecture change template
-│   └── 05-weekly-update.md      # Weekly review template
+│   ├── 05-weekly-update.md      # Weekly review template
+│   ├── 06-self-healing.md       # Error recovery protocol ⭐ NEW
+│   ├── 07-debug-loop.md         # Structured debugging ⭐ NEW
+│   └── 08-session-handoff.md    # Context transfer ⭐ NEW
 │
 ├── .github/
 │   └── PULL_REQUEST_TEMPLATE.md # PR checklist
 │
-└── CHANGELOG.md                 # Project changelog
+├── CHANGELOG.md                 # Project changelog
+└── QUICK-REFERENCE.md           # One-page cheat sheet ⭐ NEW
 ```
 
 ---
@@ -131,6 +141,15 @@ A task is DONE when:
 3. **Fixing a bug**: Use `03-bug-fix.md`
 4. **Architecture change**: Use `04-architecture-change.md`
 
+### Error Recovery ⭐ NEW
+
+5. **Stuck in error loop**: Use `06-self-healing.md`
+6. **Debugging issues**: Use `07-debug-loop.md`
+
+### Session Management ⭐ NEW
+
+7. **Ending a session**: Use `08-session-handoff.md` to preserve context
+
 ### Weekly
 
 - Use `05-weekly-update.md` to update progress and learnings
@@ -138,6 +157,10 @@ A task is DONE when:
 ### New Project Setup
 
 - Use `00-setup-os.md` to install this system on a new repo
+
+### Quick Reference
+
+- See `QUICK-REFERENCE.md` for a one-page cheat sheet
 
 ---
 
@@ -163,6 +186,18 @@ What worked well — replicate these patterns.
 
 ### patterns/mistakes.md
 Bugs and lessons learned — avoid repeating these.
+
+### reflections.md ⭐ NEW
+Post-task learnings with structured entries for what worked, challenges faced, and lessons learned.
+
+### checkpoints/ ⭐ NEW
+Context snapshots at milestones for easy restoration and handoff.
+
+### decision-trees/ ⭐ NEW
+Pre-defined decision guides for common scenarios:
+- `error-handling.md` — Error type → recommended approach
+- `component-choice.md` — When to use which library/pattern
+- `refactor-vs-fix.md` — Quick fix vs proper refactor decision
 
 ---
 
