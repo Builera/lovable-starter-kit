@@ -52,7 +52,27 @@ After completing work, you must update:
 | `.lovable/memory/activeContext.md` | Always |
 | `.lovable/memory/progress.md` | Always |
 | `.lovable/memory/patterns/mistakes.md` | If bug/incident |
+| `.lovable/memory/reflections.md` | After significant learnings |
 | `docs/adr/*` | If architecture decision |
+
+### Step 6 — REFLECT (Recommended)
+
+After completing significant tasks, add a reflection entry:
+- What went well
+- What was challenging
+- Key lessons learned
+- Patterns to reuse
+
+---
+
+## 1.5) Self-Healing Protocol
+
+When stuck in an error loop (same error 3+ times):
+
+1. **STOP** trying the same approach
+2. **READ** `prompts/06-self-healing.md`
+3. **FOLLOW** the escalation protocol
+4. **DOCUMENT** in mistakes.md after resolution
 
 ---
 
@@ -83,6 +103,8 @@ A task is DONE when:
 - [ ] `progress.md` updated
 - [ ] If bug: `mistakes.md` has entry + guardrail
 - [ ] If architecture change: ADR created
+- [ ] If session end: handoff report created
+- [ ] If major milestone: checkpoint created
 
 ---
 
@@ -94,4 +116,33 @@ PLAN    → Checklist by file + risks + assumptions
 ACT     → Implement within scope
 VERIFY  → Build/lint/test or document why not
 UPDATE  → Changelog + memory + ADR/mistakes if needed
+REFLECT → Document learnings (recommended)
 ```
+
+---
+
+## 5) Prompt Reference
+
+| Situation | Use Prompt |
+|-----------|------------|
+| Starting fresh | `prompts/00-setup-os.md` |
+| New session | `prompts/01-boot-prompt.md` |
+| Add feature | `prompts/02-feature-request.md` |
+| Fix bug | `prompts/03-bug-fix.md` |
+| Architecture change | `prompts/04-architecture-change.md` |
+| Weekly review | `prompts/05-weekly-update.md` |
+| **Error loop** | `prompts/06-self-healing.md` |
+| **Debugging** | `prompts/07-debug-loop.md` |
+| **End session** | `prompts/08-session-handoff.md` |
+
+---
+
+## 6) Decision Support
+
+Use decision trees for common choices:
+
+| Question | Reference |
+|----------|-----------|
+| How to handle this error? | `.lovable/memory/decision-trees/error-handling.md` |
+| Which component/library? | `.lovable/memory/decision-trees/component-choice.md` |
+| Refactor or quick fix? | `.lovable/memory/decision-trees/refactor-vs-fix.md` |

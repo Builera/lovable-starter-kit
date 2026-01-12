@@ -15,6 +15,16 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - `.lovable/` directory with rules and memory bank
 - `docs/` directory with architecture and ADR templates
 - `prompts/` directory with reusable AI prompts
+- **Self-Healing System**: `prompts/06-self-healing.md` for autonomous error recovery
+- **Debug Loop Protocol**: `prompts/07-debug-loop.md` for structured debugging
+- **Session Handoff**: `prompts/08-session-handoff.md` for context preservation
+- **Reflection System**: `.lovable/memory/reflections.md` for post-task learnings
+- **Checkpoint System**: `.lovable/memory/checkpoints/` for milestone snapshots
+- **Decision Trees**: `.lovable/memory/decision-trees/` with guides for:
+  - `error-handling.md` — Error type → approach mapping
+  - `component-choice.md` — Library/pattern selection guide
+  - `refactor-vs-fix.md` — When to refactor vs quick fix
+- **Quick Reference Card**: `QUICK-REFERENCE.md` one-page cheat sheet
 - PR template enforcing changelog and memory updates
 
 ### Changed
